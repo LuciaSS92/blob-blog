@@ -6,13 +6,12 @@ exports.getPosts = async (req, res) => {
         const postsList = await sequelize.query(
             `SELECT * FROM posts       `
             //   ORDER BY posts.id DESC
-            ,
-            { type: sequelize.QueryTypes.SELECT }
+
         );
-        res.send(postsList);
+        res.send(postsList[0]);
     } catch (e) {
         console.error(e);
-        res.status(400).send({ error: e.message });
+        res.status(500).send({ error: "Error getting posts" });
     }
 }
 
@@ -21,11 +20,8 @@ exports.createPost = async (req, res) => {
     const { title, body } = req.body;
     try {
         const newPost = await sequelize.query(
-            'INSERT INTO posts (title, body) VALUES (?, ?)',
-            {
-                type: sequelize.QueryTypes.INSERT,
-                replacements: [title, body]
-            },
+            `INSERT INTO posts (title, body) VALUES ('${title}','${body}')`,
+            { type: sequelize.QueryTypes.INSERT }
         );
         res.status(200).json({
             id: newPost[0],
@@ -34,7 +30,7 @@ exports.createPost = async (req, res) => {
         });
     } catch (e) {
         console.error(e);
-        res.status(400).send({ error: e.message });
+        res.status(500).send({ error: "Error creating post" });
     }
 }
 
@@ -43,11 +39,17 @@ exports.updatePost = async (req, res) => {
     const postId = req.params.id
     const { title, body } = req.body
     try {
-        const updatePost = await sequelize.query(`UPDATE posts SET 
-        title = IF('${title}' = "", title, '${title}'),
-        body = IF('${body}' = "", body, '${body}')
-        WHERE id = ${postId}`)
-        res.status(200).send({ message: "Post successfully updated" });
+        const findPost = await sequelize.query(`SELECT * FROM posts WHERE id = '${postId}'`)
+        if (findPost[0].length === 0) {
+            res.status(404).send({ message: "Post not found" });
+        } else {
+            const updatePost = await sequelize.query(
+                `UPDATE posts SET 
+            title = IF('${title}' = "", title, '${title}'),
+            body = IF('${body}' = "", body, '${body}')
+            WHERE id = ${postId}`)
+            res.status(200).send({ message: "Post successfully updated" });
+        }
     } catch (e) {
         console.error(e);
         res.status(500).send({ error: "Error updating post" });
@@ -58,8 +60,13 @@ exports.updatePost = async (req, res) => {
 exports.deletePost = async (req, res) => {
     const postId = req.params.id
     try {
-        const deletePost = await sequelize.query(`DELETE FROM posts WHERE id = ${postId}`)
-        res.status(200).send({ message: "Post successfully deleted" });
+        const findPost = await sequelize.query(`SELECT * FROM posts WHERE id = '${postId}'`)
+        if (findPost[0].length === 0) {
+            res.status(404).send({ message: "Post not found" });
+        } else {
+            const deletePost = await sequelize.query(`DELETE FROM posts WHERE id = ${postId}`)
+            res.status(200).send({ message: "Post successfully deleted" });
+        }
     } catch (e) {
         console.error(e);
         res.status(500).send({ error: "Error deleting post" });

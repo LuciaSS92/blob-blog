@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'The Blob() blog' });
+  res.render('index', { title: 'API REST - The Blob() blog' });
 });
 
 module.exports = router;
