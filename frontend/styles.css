@@ -1,0 +1,24 @@
+body {
+  color: aliceblue;
+  background-color: #f9f9fc;
+  background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
+}
+
+header {
+  background-color: #73a9ad;
+  font-weight: 700;
+  font-size: xx-large;
+}
+
+footer {
+  background-color: #73a9ad;  
+}
+
+.card {
+  background-color: #73a9ad;
+ 
+}
+
+.btn {
+  background-color: #73a9ad;
+}

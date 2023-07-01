@@ -16,28 +16,57 @@
   </head>
 
   <body>
-    <header id="header">The Blob() blog</header>
-    <nav id="nav">
-      <button onclick="openForm()">New entry</button>
-      <div id="showForm" style="display: none">
-        <form id="newPostForm" method="POST" action="/posts" >
-          <input id="title" type="text" placeholder="Title" required />
-          <input
-            id="body"
-            type="text"
-            placeholder="Share your thoughts..."
-            required
-          />
-          <input id="image" type="file" />
-          <button type="submit">Save</button>
-          <!-- <button onclick="openForm()">Close</button> -->
-        </form>
+    <header
+      id="header"
+      class="container-fluid d-flex justify-content-center py-3"
+    >
+      The Blob() blog
+    </header>
+
+    <nav id="nav" class="navbar">
+      <div class="container-fluid d-flex justify-content-center py-3">
+        <button onclick="openForm()" class="btn btn-lg btn-secondary">
+          New entry ✒
+        </button>
+        <div class="container-fluid d-flex justify-content-center py-2">
+          <div id="showForm" style="display: none">
+            <form id="newPostForm" method="POST" action="/posts" class="d-flex">
+              <div class="input-group ">
+                <textarea
+                  id="title"
+                  type="text"
+                  placeholder="Title"
+                  required
+                  class="form-control me-2 text-center"
+                  ></textarea>
+                <textarea                
+                  id="body"
+                  type="text"
+                  placeholder="Share your thoughts..."
+                  required
+                  cols="70"
+                  class="form-control me-2 text-center"
+                ></textarea>
+                <input id="file" type="file" style="display: none"/>
+                <label for="file" class="form-control me-2 text-center" style="color: darkgrey">Upload a photo</label>
+              </div>
+              <button type="submit" class="btn btn-lg btn-secondary">💾</button>
+            </form>
+          </div>
+        </div>
       </div>
     </nav>
-    <main>
+
+    <main class="container-fluid d-flex justify-content-center py-2">
       <section id="postList"></section>
     </main>
-    <footer id="footer">The Blob() blog © 2023</footer>
+
+    <footer
+      id="footer"
+      class="container-fluid d-flex justify-content-center py-1"
+    >
+      The Blob() blog © 2023
+    </footer>
     <script src="getPosts.js"></script>
     <script src="newPost.js"></script>
   </body>
