@@ -27,3 +27,7 @@ footer {
 #postList{
   width: 60%;
 }
+
+label{
+  cursor: pointer
+}

@@ -35,7 +35,7 @@
         </button>
         <div class="container-fluid d-flex justify-content-center py-3">
           <div id="showForm" style="display: none">
-            <form id="newPostForm" method="POST" action="/posts" class="d-flex">
+            <form id="newPostForm" method="POST" action="/posts" enctype="multipart/form-data" class="d-flex">
               <div class="input-group">
                 <textarea
                   id="title"
@@ -52,13 +52,17 @@
                   cols="70"
                   class="form-control me-2 text-center"
                 ></textarea>
-                <input id="file" type="file" style="display: none" />
+                <input id="uploadFile" type="file" accept="image/png, image/gif, image/jpeg" class="form-control me-2 text-center" />
+
+                <!-- style="display: none"
                 <label
                   for="file"
                   class="form-control me-2 text-center"
                   style="color: darkgrey"
                   >Upload a photo</label
-                >
+                > -->
+
+
               </div>
              
               <button type="submit" class="btn btn-lg btn-secondary">💾</button>

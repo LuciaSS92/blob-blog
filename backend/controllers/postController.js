@@ -18,20 +18,46 @@ exports.getPosts = async (req, res) => {
 /* POST create new post */
 exports.createPost = async (req, res) => {
     const { title, body } = req.body;
+    const  file  = req.files.file
+    const path = `${__dirname}/../public/images/${file.name}`   
+
+    // if (req.files === null || req.files === undefined) {
+    //     return res.status(400).send('No files were uploaded.');
+    //     console.log("holi")
+    // }
+
+    // if (!req.files || Object.keys(req.files).length === 0) {
+    //     return res.status(400).send('No files were uploaded.');
+    //     // console.log("No files uploaded")
+    // }
+
+    file.mv(path, function (err) {
+        if (err)
+            return res.status(500).send(err);
+    });
+
     try {
         const newPost = await sequelize.query(
             `INSERT INTO posts (title, body) VALUES ('${title}','${body}')`,
-            { type: sequelize.QueryTypes.INSERT }
-        );
+            { type: sequelize.QueryTypes.INSERT });
+
         res.status(200).json({
             id: newPost[0],
-            title,
-            body
+            title: title,
+            content: body,
+            // fileName: file.name
         });
+
     } catch (e) {
         console.error(e);
         res.status(500).send({ error: "Error creating post" });
     }
+
+
+
+
+
+
 }
 
 /* PUT edit post by id */

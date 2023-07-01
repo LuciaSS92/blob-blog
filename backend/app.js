@@ -4,11 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 
-require ("./db/connection")
+require("./db/connection")
 
 var app = express();
 
@@ -25,17 +26,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
+app.use(fileUpload(
+  {
+    limits: { fileSize: 20 * 1024 * 1024 },
+    abortOnLimit: true,
+    responseOnLimit: "File size too large. Please try again",
+  }))
 
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

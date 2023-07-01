@@ -1,9 +1,11 @@
+const url = 'http://localhost:3000/posts'
+
 // GET all posts from database and image from server
 getPosts()
 
 async function getPosts() {
     try {
-        const response = await fetch('http://localhost:3000/posts')
+        const response = await fetch(url)
         const data = await response.json()
 
         data.forEach(posts => {
@@ -40,7 +42,7 @@ function openForm() {
     toggleForm.style.display = toggleForm.style.display === 'none' ? '' : 'none';
 }
 
-// Send the information from the from to the server
+//POST  Send the information from the from to the server
 
 const newPost = document.getElementById("newPostForm")
 
@@ -49,17 +51,26 @@ newPost.addEventListener("submit", async (event) => {
 
     const title = document.getElementById("title").value;
     const body = document.getElementById("body").value;
+    const file = document.getElementById("uploadFile").files[0]
 
-    const data = { title, body }
+    // const data = { title, body }
+    const formData = new FormData()
+
+    formData.append("file", file)
+    formData.append("title", title)
+    formData.append("body", body)
+
+    console.log(formData)
 
     try {
-        const response = await fetch("http://localhost:3000/posts", {
+        const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: formData
         })
+        
         newPost.reset()
         getPosts()
     }
@@ -67,6 +78,8 @@ newPost.addEventListener("submit", async (event) => {
         console.error('Error saving post to database', error)
     }
 })
+
+
 
 //EDIT post by its ID
 async function editPost(id) {
