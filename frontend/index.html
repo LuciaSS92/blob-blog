@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Blob()</title>
+    <link rel="icon" href="favicon.ico" />
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
     <!-- BOOTSTRAP -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -16,30 +24,27 @@
   </head>
 
   <body>
-    <header
-      id="header"
-      class="container-fluid d-flex justify-content-center py-3"
-    >
-      The Blob() blog
+    <header class="container-fluid d-flex justify-content-center mt-3">
+      <h1 id="header">The Blob() blog</h1>
     </header>
 
     <nav id="nav" class="navbar">
-      <div class="container-fluid d-flex justify-content-center py-3">
+      <div class="container-fluid d-flex justify-content-center">
         <button onclick="openForm()" class="btn btn-lg btn-secondary">
           New entry ✒
         </button>
-        <div class="container-fluid d-flex justify-content-center py-2">
+        <div class="container-fluid d-flex justify-content-center py-3">
           <div id="showForm" style="display: none">
             <form id="newPostForm" method="POST" action="/posts" class="d-flex">
-              <div class="input-group ">
+              <div class="input-group">
                 <textarea
                   id="title"
                   type="text"
                   placeholder="Title"
                   required
                   class="form-control me-2 text-center"
-                  ></textarea>
-                <textarea                
+                ></textarea>
+                <textarea
                   id="body"
                   type="text"
                   placeholder="Share your thoughts..."
@@ -47,9 +52,15 @@
                   cols="70"
                   class="form-control me-2 text-center"
                 ></textarea>
-                <input id="file" type="file" style="display: none"/>
-                <label for="file" class="form-control me-2 text-center" style="color: darkgrey">Upload a photo</label>
+                <input id="file" type="file" style="display: none" />
+                <label
+                  for="file"
+                  class="form-control me-2 text-center"
+                  style="color: darkgrey"
+                  >Upload a photo</label
+                >
               </div>
+             
               <button type="submit" class="btn btn-lg btn-secondary">💾</button>
             </form>
           </div>
@@ -57,17 +68,16 @@
       </div>
     </nav>
 
-    <main class="container-fluid d-flex justify-content-center py-2">
+    <main class="container-fluid d-flex justify-content-center">
       <section id="postList"></section>
     </main>
 
     <footer
       id="footer"
-      class="container-fluid d-flex justify-content-center py-1"
+      class="container-fluid d-flex justify-content-center p-2 mt-5"
     >
       The Blob() blog © 2023
     </footer>
-    <script src="getPosts.js"></script>
-    <script src="newPost.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

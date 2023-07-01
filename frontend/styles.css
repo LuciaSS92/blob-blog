@@ -4,10 +4,12 @@ body {
   background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
 }
 
-header {
-  background-color: #73a9ad;
+#header {
+  color: #73a9ad;
   font-weight: 700;
-  font-size: xx-large;
+  font-size: 12vw;
+  font-family: 'Sacramento', cursive;
+  font-style: italic;  
 }
 
 footer {
@@ -21,4 +23,7 @@ footer {
 
 .btn {
   background-color: #73a9ad;
+}
+#postList{
+  width: 60%;
 }
