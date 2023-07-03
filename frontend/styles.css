@@ -8,26 +8,61 @@ body {
   color: #73a9ad;
   font-weight: 700;
   font-size: 12vw;
-  font-family: 'Sacramento', cursive;
-  font-style: italic;  
+  font-family: "Sacramento", cursive;
+  font-style: italic;
 }
 
 footer {
-  background-color: #73a9ad;  
+  background-color: #73a9ad;
 }
 
 .card {
   background-color: #73a9ad;
- 
+}
+
+#date{
+  color: #73a9ad;
+  font-family: "Sacramento", cursive;
+  font-weight: 900;
+  font-size: 2vw;
+  padding: 3% 0
+
 }
 
 .btn {
   background-color: #73a9ad;
 }
-#postList{
+#postList {
   width: 60%;
 }
 
-label{
-  cursor: pointer
+p{
+  font-size: large;
 }
+
+label {
+  cursor: pointer;
+}
+
+img{
+  width: 100%;
+}
+
+.polaroid {
+  width: 40%;
+  height: 40%;
+  background: aliceblue;  
+  padding: 3% 3% 0; 
+ }
+
+ .photo{
+  border-radius: 3%;
+
+ }
+
+ /* .extra{
+  display: flex;
+  justify-content: bottom;
+  align-items:self-end;
+ } */
+

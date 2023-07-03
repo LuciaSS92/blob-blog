@@ -3,8 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const cors = require("cors");
-const fileUpload = require('express-fileupload');
+var cors = require("cors");
+var fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
@@ -25,13 +25,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
 app.use(fileUpload(
   {
     limits: { fileSize: 20 * 1024 * 1024 },
     abortOnLimit: true,
     responseOnLimit: "File size too large. Please try again",
   }))
+
+app.use(cors());
+
 
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);

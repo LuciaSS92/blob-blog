@@ -1,4 +1,5 @@
 const sequelize = require("../db/connection")
+const fs = require('fs')
 
 /* GET posts listing */
 exports.getPosts = async (req, res) => {
@@ -18,8 +19,8 @@ exports.getPosts = async (req, res) => {
 /* POST create new post */
 exports.createPost = async (req, res) => {
     const { title, body } = req.body;
-    const  file  = req.files.file
-    const path = `${__dirname}/../public/images/${file.name}`   
+    const file = req.files.file
+
 
     // if (req.files === null || req.files === undefined) {
     //     return res.status(400).send('No files were uploaded.');
@@ -31,21 +32,26 @@ exports.createPost = async (req, res) => {
     //     // console.log("No files uploaded")
     // }
 
-    file.mv(path, function (err) {
-        if (err)
-            return res.status(500).send(err);
-    });
+
 
     try {
         const newPost = await sequelize.query(
             `INSERT INTO posts (title, body) VALUES ('${title}','${body}')`,
             { type: sequelize.QueryTypes.INSERT });
 
+        const postId = newPost[0]
+        const path = `${__dirname}/../public/images/${postId}.jpg`
+
+        file.mv(path, function (err) {
+            if (err)
+                return res.status(500).send(err);
+        });
+
         res.status(200).json({
-            id: newPost[0],
+            id: postId,
             title: title,
             content: body,
-            // fileName: file.name
+            fileName: postId + ".jpg"
         });
 
     } catch (e) {
@@ -85,12 +91,21 @@ exports.updatePost = async (req, res) => {
 /* DELETE delete post by id */
 exports.deletePost = async (req, res) => {
     const postId = req.params.id
+    const filePath = `/images/${postId}.jpg`
     try {
         const findPost = await sequelize.query(`SELECT * FROM posts WHERE id = '${postId}'`)
         if (findPost[0].length === 0) {
             res.status(404).send({ message: "Post not found" });
         } else {
             const deletePost = await sequelize.query(`DELETE FROM posts WHERE id = ${postId}`)
+
+            fs.unlink("public" + filePath, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            })
+
             res.status(200).send({ message: "Post successfully deleted" });
         }
     } catch (e) {
