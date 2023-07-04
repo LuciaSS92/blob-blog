@@ -1,13 +1,13 @@
 const sequelize = require("../db/connection")
 const fs = require('fs')
 
+//CRUD
+
 /* GET posts listing */
 exports.getPosts = async (req, res) => {
     try {
         const postsList = await sequelize.query(
-            `SELECT * FROM posts       `
-            //   ORDER BY posts.id DESC
-
+            `SELECT * FROM posts `
         );
         res.send(postsList[0]);
     } catch (e) {
@@ -16,23 +16,26 @@ exports.getPosts = async (req, res) => {
     }
 }
 
+//  GET post by id
+exports.getPostById = async (req, res) => {
+    const postId = req.params.id
+    try {
+        const post = await sequelize.query(
+            `SELECT * FROM posts WHERE id = '${postId}'`
+        );
+        res.send(post[0][0]);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Error getting post" });
+    }
+}
+
+
 /* POST create new post */
+//Save text data to db, save image file at /public/images with name id.jpg
 exports.createPost = async (req, res) => {
     const { title, body } = req.body;
     const file = req.files.file
-
-
-    // if (req.files === null || req.files === undefined) {
-    //     return res.status(400).send('No files were uploaded.');
-    //     console.log("holi")
-    // }
-
-    // if (!req.files || Object.keys(req.files).length === 0) {
-    //     return res.status(400).send('No files were uploaded.');
-    //     // console.log("No files uploaded")
-    // }
-
-
 
     try {
         const newPost = await sequelize.query(
@@ -58,15 +61,10 @@ exports.createPost = async (req, res) => {
         console.error(e);
         res.status(500).send({ error: "Error creating post" });
     }
-
-
-
-
-
-
 }
 
 /* PUT edit post by id */
+//If an input is left blank, no changes will be saved to db and previous value stays unchanged
 exports.updatePost = async (req, res) => {
     const postId = req.params.id
     const { title, body } = req.body
@@ -89,6 +87,7 @@ exports.updatePost = async (req, res) => {
 }
 
 /* DELETE delete post by id */
+//Deletes text data from db and removes image from /public/images
 exports.deletePost = async (req, res) => {
     const postId = req.params.id
     const filePath = `/images/${postId}.jpg`

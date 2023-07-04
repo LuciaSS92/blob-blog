@@ -26,7 +26,6 @@ footer {
   font-weight: 900;
   font-size: 2vw;
   padding: 3% 0
-
 }
 
 .btn {
@@ -38,10 +37,6 @@ footer {
 
 p{
   font-size: large;
-}
-
-label {
-  cursor: pointer;
 }
 
 img{
@@ -57,12 +52,8 @@ img{
 
  .photo{
   border-radius: 3%;
-
  }
 
- /* .extra{
-  display: flex;
-  justify-content: bottom;
-  align-items:self-end;
- } */
-
+ #post-body{
+  font-size: 150%;
+ }

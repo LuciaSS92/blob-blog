@@ -34,7 +34,6 @@ app.use(fileUpload(
 
 app.use(cors());
 
-
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 
