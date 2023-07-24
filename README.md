@@ -22,7 +22,7 @@ To be implemented
 ### Backend
 
 ```
-cd Keybook/Backend
+cd backend
 ```
 
 <p>1. Install dependencies:</p>
