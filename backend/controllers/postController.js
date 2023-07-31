@@ -7,9 +7,10 @@ const fs = require('fs')
 exports.getPosts = async (req, res) => {
     try {
         const postsList = await sequelize.query(
-            `SELECT * FROM posts `
+            `SELECT * FROM posts 
+            ORDER BY posts.id DESC`
         );
-        res.send(postsList[0]);
+        res.status(200).send(postsList[0]);
     } catch (e) {
         console.error(e);
         res.status(500).send({ error: "Error getting posts" });
@@ -23,7 +24,7 @@ exports.getPostById = async (req, res) => {
         const post = await sequelize.query(
             `SELECT * FROM posts WHERE id = '${postId}'`
         );
-        res.send(post[0][0]);
+        res.status(200).send(post[0][0]);
     } catch (e) {
         console.error(e);
         res.status(500).send({ error: "Error getting post" });
@@ -50,7 +51,7 @@ exports.createPost = async (req, res) => {
                 return res.status(500).send(err);
         });
 
-        res.status(200).json({
+        res.status(200).send({
             id: postId,
             title: title,
             content: body,
@@ -59,7 +60,7 @@ exports.createPost = async (req, res) => {
 
     } catch (e) {
         console.error(e);
-        res.status(500).send({ error: "Error creating post" });
+        res.status(500).send({ error: "Error creating post" })
     }
 }
 
@@ -78,7 +79,13 @@ exports.updatePost = async (req, res) => {
             title = IF('${title}' = "", title, '${title}'),
             body = IF('${body}' = "", body, '${body}')
             WHERE id = ${postId}`)
-            res.status(200).send({ message: "Post successfully updated" });
+            res.status(200).send({
+                message: "Post successfully updated",
+                id: postId,
+                newTitle: title,
+                newContent: body,
+                fileName: postId + ".jpg"
+            });      
         }
     } catch (e) {
         console.error(e);

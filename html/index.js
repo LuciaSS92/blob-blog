@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/posts'
+const url = 'http://localhost:3001/posts'
 
 // GET all posts from database and images from server
 drawPosts()

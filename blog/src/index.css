@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Sacramento&display=swap");
+
+body {
+  color: aliceblue;
+  background-color: #f9f9fc;
+  background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
+}
+
+#header {
+  color: #73a9ad;
+  font-weight: 700;
+  font-size: 8vw;
+  font-family: "Sacramento", cursive;
+  font-style: italic;
+}
+
+.head-title {
+  font-family: "Sacramento", cursive;
+  font-style: italic;
+  color: #73a9ad;
+  font-size: 4vw;
+}
+
+#post-body {
+  font-size: 150%;
+}
+
+.card-body {
+  background-color: #73a9ad;
+}
+
+.card-title {
+  color: aliceblue !important
+}
+
+.card-text {
+  color: aliceblue;
+}
+
+#date {
+  color: #73a9ad;
+  font-family: "Sacramento", cursive;
+  font-weight: 900;
+  font-size: 2vw;
+  padding: 3% 0;
+}
+
+.btn{
+  color: aliceblue !important;
+}
+
+.btn-secondary {
+  background-color: #73a9ad !important;
+}
+
+#postList {
+  width: 60%;
+}
+
+p {
+  font-size: large;
+}
+
+img {
+  width: 100%;
+}
+
+.polaroid {
+  width: 40%;
+  height: 40%;
+  background: aliceblue;
+  padding: 3% 3% 0;
+}
+
+.photo {
+  border-radius: 3%;
+}
+
+.link {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+footer {
+  background-color: #73a9ad;
+}
